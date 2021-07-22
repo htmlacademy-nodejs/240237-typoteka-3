@@ -1,7 +1,7 @@
 # Личный проект «Типотека» [![Build status][travis-image]][travis-url]
 
 * Студент: [Андрей Чепулис](https://up.htmlacademy.ru/nodejs/3/user/240237).
-* Наставник: `Неизвестно`.
+* Наставник: `Кексобот`.
 
 ---
 
