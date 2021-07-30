@@ -1,5 +1,13 @@
 'use strict';
 
+const fs = require(`fs`).promises;
+const {exit} = require(`process`);
+const chalk = require(`chalk`);
+
+const {
+  getRandomInt,
+  shuffle,
+} = require(`../../utils`);
 
 const DEFAULT_COUNT = 1;
 const FILE_NAME = `mocks.json`;
@@ -54,14 +62,6 @@ const CATEGORIES = [
   `Железо`,
 ];
 
-
-const fs = require(`fs`);
-const {exit} = require(`process`);
-const {
-  getRandomInt,
-  shuffle,
-} = require(`../../utils`);
-
 const generateOffers = (count) => (
   Array(count).fill({}).map(() => ({
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
@@ -74,21 +74,22 @@ const generateOffers = (count) => (
 
 module.exports = {
   name: `--generate`,
-  run(args) {
+  async run(args) {
     const [count] = args;
     const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
     if (countOffer > 1000) {
-      console.info(`Не больше 1000 публикаций`);
+      console.info(chalk.yellow(`Не больше 1000 публикаций`));
       exit();
     }
     const content = JSON.stringify(generateOffers(countOffer));
-    fs.writeFile(FILE_NAME, content, (err) => {
-      if (err) {
-        console.error(`Can't write data to file...`);
-        exit(1);
-      }
-      console.info(`Operation success. File created.`);
+
+    try {
+      fs.writeFile(FILE_NAME, content);
+      console.info(chalk.green(`Operation success. File created.`));
       exit(0);
-    });
+    } catch (err) {
+      console.error(chalk.red(`Can't write data to file...`));
+      exit(1);
+    }
   }
 };
