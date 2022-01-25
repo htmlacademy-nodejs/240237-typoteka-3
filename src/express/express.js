@@ -1,7 +1,8 @@
 'use strict';
 
 const express = require(`express`);
-const offersRoutes = require(`./routes/offers`);
+const path = require(`path`);
+const articlesRoutes = require(`./routes/articles`);
 const myRoutes = require(`./routes/my`);
 const loginRoutes = require(`./routes/login`);
 const searchRoutes = require(`./routes/search`);
@@ -10,13 +11,13 @@ const mainRoutes = require(`./routes/main`);
 
 const DEFAULT_PORT = 8080;
 const app = express();
-const PUBLIC_DIR = `./src/express/public`;
+const PUBLIC_DIR = `public`;
 
-app.use(express.static(PUBLIC_DIR));
-app.set(`views`, `./src/express/templates`);
+app.use(express.static(path.resolve(__dirname, PUBLIC_DIR)));
+app.set(`views`, path.resolve(__dirname, `templates`));
 app.set(`view engine`, `pug`);
 
-app.use(`/offers`, offersRoutes);
+app.use(`/articles`, articlesRoutes);
 app.use(`/my`, myRoutes);
 app.use(`/login`, loginRoutes);
 app.use(`/search`, searchRoutes);

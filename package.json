@@ -27,8 +27,8 @@
     "pug-lint": "2.6.0"
   },
   "dependencies": {
-  "chalk": "4.1.1",
-  "express": "4.17.1",
-  "pug": "2.0.4"
+    "chalk": "4.1.1",
+    "express": "4.17.1",
+    "pug": "2.0.4"
   }
 }
